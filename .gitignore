@@ -26,3 +26,12 @@
 *.exe
 *.out
 *.app
+
+# Draft Directories
+model
+snapshot
+log
+draft
+data
+caffe
+output
