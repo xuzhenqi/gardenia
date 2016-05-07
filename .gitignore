@@ -35,3 +35,5 @@ draft
 data
 caffe
 output
+*.jpg
+script/train.sh
