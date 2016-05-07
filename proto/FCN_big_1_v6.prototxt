@@ -10,14 +10,14 @@ layer {
     phase: TRAIN
   }
   transform_param {
-    mean_file: "../dataset/300W_train__mean"
+    mean_file: "../data/train_mean.blob"
     scale: 0.01
   }
   image_data_param {
-    source: "/mnt/dataset2/300W/augment/300W_train_label.txt"
+    source: "../data/augment/train.txt"
     batch_size: 8 
     shuffle: true
-    root_folder: "/mnt/dataset2/300W/augment/"
+    root_folder: "../data/augment/"
   }
   gaussmap_param {
     std: 10 
@@ -36,14 +36,14 @@ layer {
     phase: TEST 
   }
   transform_param {
-    mean_file: "../dataset/300W_train__mean"
+    mean_file: "../data/train_mean.blob"
     scale: 0.01
   }
   image_data_param {
-    source: "/mnt/dataset2/300W/crop/300W_test_label.txt"
+    source: "../data/crop_gt_1.2/test.txt"
     batch_size: 5 
     shuffle: false 
-    root_folder: "/mnt/dataset2/300W/crop/"
+    root_folder: "../data/crop_gt_1.2/"
   }
   gaussmap_param {
     std: 10 
@@ -78,11 +78,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.3
+      std: 0.174
     }
     bias_filler {
-      type: "constant"
-      value: 0.12
+      type: "gaussian"
+      std: 0.336
     }
   }
 }
@@ -114,11 +114,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.3
+      std: 0.0497
     }
     bias_filler {
-      type: "constant"
-      value: 0.12
+      type: "gaussian"
+      std: 0.748
     }
   }
 #  propagate_down: false
@@ -151,11 +151,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.3
+      std: 0.0506
     }
     bias_filler {
-      type: "constant"
-      value: 0.12
+      type: "gaussian"
+      std: 0.764
     }
   }
 #  propagate_down: false
@@ -188,11 +188,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0424
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.744
     }
   }
 #  propagate_down: false
@@ -223,8 +223,8 @@ layer {
     group: 64
     bias_term: false
     weight_filler {
-      type: "constant"
-      value: 0.111 
+      type: "gaussian"
+      std: 0.121 
     }
     engine: CAFFE
   }
@@ -258,11 +258,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.00349
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.356
     }
   }
 #  propagate_down: false
@@ -295,11 +295,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0353
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.489
     }
   }
 #  propagate_down: false
@@ -332,11 +332,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0354
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.445
     }
   }
 #  propagate_down: false
@@ -369,11 +369,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0336
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.459
     }
   }
 #  propagate_down: false
@@ -406,11 +406,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0326
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.455
     }
   }
 #  propagate_down: false
@@ -443,11 +443,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0267
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.307
     }
   }
 #  propagate_down: false
@@ -480,11 +480,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0277
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.345
     }
   }
 #  propagate_down: false
@@ -517,11 +517,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0268
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.511
     }
   }
 #  propagate_down: false
@@ -554,11 +554,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0308
     }
     bias_filler {
-      type: "constant"
-      value: 0.4
+      type: "gaussian"
+      std: 0.402
     }
   }
 #  propagate_down: false
@@ -591,11 +591,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.07
+      std: 0.0302
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.396
     }
   }
 #  propagate_down: false
@@ -628,11 +628,11 @@ layer {
     kernel_size: 3
     weight_filler {
       type: "gaussian"
-      std: 0.04
+      std: 0.0282
     }
     bias_filler {
-      type: "constant"
-      value: 0.5 
+      type: "gaussian"
+      std: 0.409
     }
   }
 }
@@ -662,8 +662,8 @@ layer {
     group: 128 
     bias_term: false
     weight_filler {
-      type: "constant"
-      value: 0.111 
+      type: "gaussian"
+      std: 0.0998
     }
     engine: CAFFE
   }
@@ -697,11 +697,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.00184
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.202
     }
   }
 }
@@ -733,11 +733,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0179
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.322
     }
   }
 }
@@ -769,11 +769,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0175
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.334
     }
   }
 }
@@ -805,11 +805,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0173
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.238
     }
   }
 }
@@ -841,11 +841,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0168
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.250
     }
   }
 }
@@ -877,11 +877,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0154
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.198
     }
   }
 }
@@ -913,11 +913,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0169
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.327
     }
   }
 }
@@ -949,11 +949,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0172
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.255
     }
   }
 }
@@ -985,11 +985,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0194
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.307
     }
   }
 }
@@ -1021,11 +1021,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0202
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.222
     }
   }
 }
@@ -1057,11 +1057,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.08
+      std: 0.0188
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.274
     }
   }
 }
@@ -1093,11 +1093,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.042
+      std: 0.0105
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.603
     }
   }
 }
@@ -1129,11 +1129,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.042
+      std: 0.00929
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.0577
     }
   }
 }
@@ -1165,11 +1165,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.042
+      std: 0.00813
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.0578
     }
   }
 }
@@ -1201,11 +1201,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.042
+      std: 0.00759
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.0578
     }
   }
 }
@@ -1237,11 +1237,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.042
+      std: 0.00775
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.0521
     }
   }
 }
@@ -1273,11 +1273,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.9
+      std: 0.00771
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.156
     }
   }
 }
@@ -1309,11 +1309,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.9
+      std: 0.00779
     }
     bias_filler {
-      type: "constant"
-      value: 0.5
+      type: "gaussian"
+      std: 0.154
     }
   }
 }
@@ -1345,11 +1345,11 @@ layer {
     pad: 1
     weight_filler {
       type: "gaussian"
-      std: 0.15
+      std: 0.0171
     }
     bias_filler {
-      type: "constant"
-      value: 0.53 
+      type: "gaussian"
+      std: 0.263
     }
     engine: CAFFE
   }
