@@ -1,0 +1,407 @@
+name: "FCN_big_1_v3"
+input: "data"
+input_shape {
+  dim: 1
+  dim: 3
+  dim: 224
+  dim: 224
+}
+layer {
+  name: "conv1_1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.3
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.12
+    }
+  }
+#  propagate_down: false
+}
+layer {
+  name: "relu1_1"
+  type: "ReLU"
+  bottom: "conv1_1"
+  top: "conv1_1"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv1_2"
+  type: "Convolution"
+  bottom: "conv1_1"
+  top: "conv1_2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.08
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.4
+    }
+  }
+#  propagate_down: false
+}
+layer {
+  name: "relu1_2"
+  type: "ReLU"
+  bottom: "conv1_2"
+  top: "conv1_2"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv_pool_1"
+  type: "Convolution"
+  bottom: "conv1_2"
+  top: "conv_pool_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    stride: 2
+    group: 64
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.111 
+    }
+    engine: CAFFE
+  }
+#  propagate_down: false
+}
+layer {
+  name: "relu_conv_pool_1"
+  type: "ReLU"
+  bottom: "conv_pool_1"
+  top: "conv_pool_1"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv2_0"
+  type: "Convolution"
+  bottom: "conv_pool_1"
+  top: "conv2_0"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.08
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.4
+    }
+  }
+#  propagate_down: false
+}
+layer {
+  name: "relu2_0"
+  type: "ReLU"
+  bottom: "conv2_0"
+  top: "conv2_0"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv2_1"
+  type: "Convolution"
+  bottom: "conv2_0"
+  top: "conv2_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.07
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.5
+    }
+  }
+#  propagate_down: false
+}
+layer {
+  name: "relu2_1"
+  type: "ReLU"
+  bottom: "conv2_1"
+  top: "conv2_1"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv2_2"
+  type: "Convolution"
+  bottom: "conv2_1"
+  top: "conv2_2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256 
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "gaussian"
+      std: 0.04
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.5 
+    }
+  }
+#  propagate_down: false
+}
+layer {
+  name: "relu2_2"
+  type: "ReLU"
+  bottom: "conv2_2"
+  top: "conv2_2"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv_pool_2"
+  type: "Convolution"
+  bottom: "conv2_2"
+  top: "conv_pool_2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    stride: 2
+    group: 256
+    bias_term: false
+    weight_filler {
+      type: "constant"
+      value: 0.111 
+    }
+    engine: CAFFE
+  }
+#  propagate_down: false
+}
+layer {
+  name: "relu_conv_pool_2"
+  type: "ReLU"
+  bottom: "conv_pool_2"
+  top: "conv_pool_2"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv3_0"
+  type: "Convolution"
+  bottom: "conv_pool_2"
+  top: "conv3_0"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256 
+    kernel_size: 3 
+    pad: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.08
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.5
+    }
+  }
+}
+layer {
+  name: "relu_conv3_0"
+  type: "ReLU"
+  bottom: "conv3_0"
+  top: "conv3_0"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv3_1"
+  type: "Convolution"
+  bottom: "conv3_0"
+  top: "conv3_1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2 
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 680 
+    kernel_size: 3 
+    pad: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.042
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.5
+    }
+  }
+}
+layer {
+  name: "relu_conv3_1"
+  type: "ReLU"
+  bottom: "conv3_1"
+  top: "conv3_1"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv3_2"
+  type: "Convolution"
+  bottom: "conv3_1"
+  top: "conv3_2"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 680 
+    kernel_size: 3
+    group: 68
+    pad: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.9
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.5
+    }
+    engine: CAFFE
+  }
+}
+layer {
+  name: "relu_conv3_2"
+  type: "ReLU"
+  bottom: "conv3_2"
+  top: "conv3_2"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
+layer {
+  name: "conv3_3"
+  type: "Convolution"
+  bottom: "conv3_2"
+  top: "conv3_3"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 68 
+    kernel_size: 3
+    pad: 1
+    group: 68
+    weight_filler {
+      type: "gaussian"
+      std: 0.15
+    }
+    bias_filler {
+      type: "constant"
+      value: 0.53 
+    }
+    engine: CAFFE
+  }
+}
+layer {
+  name: "relu_conv3_3"
+  type: "ReLU"
+  bottom: "conv3_3"
+  top: "conv3_3"
+  relu_param {
+    negative_slope: 0.01
+  }
+}
