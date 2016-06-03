@@ -5,7 +5,7 @@ Gardenia is a face alignment project using Convolutional Neural Network. The pro
 - Download and install [caffe from xuzhenqi] (https://github.com/xuzhenqi/caffe/tree/eye_detection). We use both the c++ and python interfaces.
 - Matlab
 
-## Train tutorial
+## Tutorial
 We need first to prepare the data, suppose the original data root path are `data/`. Run
 ```
 scripts/prepare.sh
@@ -20,7 +20,7 @@ to train our model. The prototxt are set done on `proto` folder.
 
 After training a model, suppose the model path to be `$MODEL`, run 
 ```
-python inference.py $prototxt $model $layername $root $filelists $outpath 
+scripts/inference.sh # You may need to set some options in inference.sh to predict labels 
 scripts/evalution.sh # report mean err on 300W dataset and CED curve.
 ```
-
+The `inference.sh` will use trainded model to predict shapes, the pretrainded can be downloaded from [here] (http://pan.baidu.com/s/1cBOph8). Feel free to put an issue if you encounter problems.
