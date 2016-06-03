@@ -1,4 +1,5 @@
 import numpy as np
+import random
 import cv2
 import matplotlib.pyplot as plt
 from util import get_index, get_index_mean, softmax
@@ -8,8 +9,6 @@ import sys
 sys.path.insert(0, caffe_root + 'python')
 import caffe
 caffe.set_mode_gpu()
-
-
 
 mean_file = '../data/train_mean.blob'
 
@@ -103,7 +102,9 @@ if __name__ == '__main__':
 
     net = caffe.Net(prototxt, model, caffe.TEST)
     (filenames, bbxs) = get_filenames_bbx(filelists)
-    for i in range(len(filenames)):
+    index = range(len(filenames))
+    random.shuffle(index)
+    for i in index:
         print i, filenames[i], bbxs[i][0], bbxs[i][1], bbxs[i][2], bbxs[i][3]
         img_crops = shift_exp(root, filenames[i], bbxs[i], outRoot)
         preds = get_preds_multiple(net, layername, img_crops)

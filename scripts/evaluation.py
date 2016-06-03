@@ -3,14 +3,17 @@ from util import errrate_v3
 import sys
 import os
 
-def get_shape(shape_file):
+def get_shape(shape_file, filename=True):
     f = open(shape_file, 'r')
     filenames = []
     shapes = []
     for l in f.readlines():
         l = l.split()
-        filenames.append(l[0])
-        shapes.append([float(i) for i in l[1:]])
+        if filename:
+            filenames.append(l[0])
+            shapes.append([float(i) for i in l[1:]])
+        else:
+            shapes.append([float(i) for i in l])
     f.close()
     shapes = np.array(shapes)
     return (filenames, shapes)
@@ -45,11 +48,11 @@ if __name__ == '__main__':
     prediction_file = sys.argv[2]
     out_prefix = sys.argv[3]
 
-    (filenames, label) = get_shape(label_file)
     (filenames, preds) = get_shape(prediction_file)
+    (filenames, label) = get_shape(label_file)
     
     (aerr, err) = errrate(preds, label)
-    dumperr(err, out_prefix + "_err.txt", filenames)
+    dumperr(err, out_prefix, filenames)
     print "Full set:", aerr
     (aerr, err) = errrate(preds[554:689], label[554:689])
     print "Challenging set:", aerr 

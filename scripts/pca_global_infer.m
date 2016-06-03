@@ -1,7 +1,13 @@
-function new_shape = pca_global_infer(pred, W, mean_shape, t, path)
-%%% pred is a text file without filenames
-test_data = load(pred);
-test_data = test_data + 1;
+function new_shape = pca_global_infer(pred, W_file, mean_shape_file, t, path)
+f = fopen(pred);
+data = textscan(f, ['%s', repmat( '%f', [1, 136])]);
+test_data = cell2mat(data(2:end));
+filenames = data{1};
+fclose(f);
+W = load(W_file);
+mean_shape = load(mean_shape_file);
+mean_shape = reshape(mean_shape, [1, 2, 68]);
+
 K = size(test_data, 1);
 test_data_align = reshape(test_data, [K, 2, 68]);
 a = zeros(K, 1);
@@ -16,7 +22,7 @@ for i = 1:K
     %draw_shape(test_data_align(i, :, :));
 end
 
-mu = mean_shape;
+mu = reshape(mean_shape, 1, 136);
 W_r = W(:, 1:t);
 test_data_align = reshape(test_data_align, [K, 136]);
 test_align_r = (test_data_align - repmat(mu, [K, 1])) * (W_r * W_r') + ...
@@ -41,8 +47,9 @@ new_shape = reshape(test_align_r, [K, 136]);
 if nargin > 4
     f = fopen(path, 'w');
     for i = 1:K
+        fprintf(f, '%s', filenames{i});
         for j = 1:136
-            fprintf(f, '%f ', new_shape(i,j));
+            fprintf(f, ' %f', new_shape(i,j));
         end
         fprintf(f, '\n');
     end
