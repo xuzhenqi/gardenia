@@ -54,28 +54,45 @@ class Alignment(object):
     def shape_map(self, pred, method):
         '''method can be one of ['max', 'mean', 'max_pca', 'mean_pca']'''
         if method == 'max':
-            shape = get_index(pred)
+            shape = vectorize(get_index(pred))
             shape = shape * 4
         elif method == 'mean':
-            shape = get_index_mean(pred)
+            shape = vectorize(get_index_mean(pred))
             shape = shape * 4
         elif method == 'max_pca':
-            shape = get_index(pred)
+            shape = vectorize(get_index(pred))
             shape = shape * 4
             shape = self.pca_noise_reduction(shape)
         elif method == 'mean_pca':
             shape = vectorize(get_index_mean(pred))
             shape = shape * 4
-            print shape.min(), shape.max()
+            shape_pca = self.pca_noise_reduction(shape)
             if p.debug:
                 show_predict(self.img, shape)
-            shape = self.pca_noise_reduction(shape)
-            if p.debug:
-                show_predict(self.img, shape)
+                show_predict(self.img, shape_pca)
         else:
             print "Unknown method: ", method
             exit(0)
         return shape
+
+    def shape_map_all(self, pred):
+        shapes = []
+        shape_max = vectorize(get_index(pred))
+        shape_max = shape_max * 4
+        shape_max_pca = self.pca_noise_reduction(shape_max)
+        shape_mean = vectorize(get_index_mean(pred))
+        shape_mean = shape_mean * 4
+        shape_mean_pca = self.pca_noise_reduction(shape_mean)
+        shapes.append(shape_max)
+        shapes.append(shape_max_pca)
+        shapes.append(shape_mean)
+        shapes.append(shape_mean_pca)
+        if p.debug:
+            show_predict(self.img, shape_max)
+            show_predict(self.img, shape_max_pca)
+            show_predict(self.img, shape_mean)
+            show_predict(self.img, shape_mean_pca)
+        return shapes
 
     def pca_noise_reduction(self, shape):
         shape = shape.reshape((68, 2))
@@ -92,6 +109,11 @@ class Alignment(object):
         shape = self.shape_map(pred, method)
         return shape
 
+    def process_all(self, img):
+        pred = self.get_pred(img)
+        shapes = self.shape_map_all(pred)
+        return shapes
+
 
 def init():
     parser = OptionParser()
@@ -107,7 +129,7 @@ def init():
     parser.add_option('--mean_shape', type='string')
     parser.add_option('--debug', action="store_true", default=False)
     parser.add_option('--method', type='choice', default='mean_pca',
-                      choices=['max', 'mean', 'max_pca', 'mean_pca'])
+                      choices=['max', 'mean', 'max_pca', 'mean_pca', 'all'])
     (options, args) = parser.parse_args()
     return options
 
@@ -117,11 +139,30 @@ if __name__ == '__main__':
     m = Alignment(p.prototxt, p.model, p.layername, p.mean_file, p.W, p.t,
                   p.mean_shape)
     filenames = get_filenames(p.filelists)
-    shapes = []
-    for filename in filenames:
-        print filename
-        img = caffe.io.load_image(p.root + filename)
-        shape = m.process(img, p.method)
-        shapes.append(shape)
-    shapes = np.array(shapes)
-    dump(shapes, filenames, p.outpath)
+    if p.method == 'all':
+        shapes_max = []
+        shapes_max_pca = []
+        shapes_mean = []
+        shapes_mean_pca = []
+        for filename in filenames:
+            print filename
+            img = caffe.io.load_image(p.root + filename)
+            shapes = m.process_all(img)
+            shapes_max.append(shapes[0])
+            shapes_max_pca.append(shapes[1])
+            shapes_mean.append(shapes[2])
+            shapes_mean_pca.append(shapes[3])
+        dump(np.array(shapes_max), filenames, p.outpath + '_max')
+        dump(np.array(shapes_max_pca), filenames, p.outpath + '_max_pca')
+        dump(np.array(shapes_mean), filenames, p.outpath + '_mean')
+        dump(np.array(shapes_mean_pca), filenames, p.outpath + '_mean_pca')
+    else:
+        shapes = []
+        for filename in filenames:
+            print filename
+            img = caffe.io.load_image(p.root + filename)
+            shape = m.process(img, p.method)
+            shapes.append(shape)
+        shapes = np.array(shapes)
+        dump(shapes, filenames, p.outpath)
+    print "Process finished!"

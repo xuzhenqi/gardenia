@@ -148,10 +148,10 @@ def get_index(pre):
     shape = pre.shape
     idx = np.argmax(np.reshape(pre, (shape[0], shape[1], shape[2]*shape[3])),
                     axis=2)
-    shape = np.ndarray((shape[0], shape[1], 2))
-    shape[:, :, 0] = idx % shape[3]
-    shape[:, :, 1] = idx / shape[3]
-    return shape
+    out = np.ndarray((shape[0], shape[1], 2))
+    out[:, :, 0] = idx % shape[3]
+    out[:, :, 1] = idx / shape[3]
+    return out
 
 
 def get_index_mean(pre):
