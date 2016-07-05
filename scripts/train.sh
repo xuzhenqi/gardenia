@@ -32,8 +32,8 @@
 #$CAFFE_ROOT/build/tools/caffe train --solver=$SOLVER --weights=$WEIGHT 2> $LOG
 
 CAFFE_ROOT=../caffe
-NETNAME=FCN_big_1_v7
+NETNAME=FCN_big_1_v6_global
 SOLVER=../proto/${NETNAME}_solver.prototxt
-WEIGHT=../model/${NETNAME}_begin.caffemodel
-LOG=../log/${NETNAME}.log
-$CAFFE_ROOT/build/tools/caffe train --solver=$SOLVER --weights=$WEIGHT 2> $LOG
+WEIGHT=../model/FCN_big_1_v6_begin.caffemodel
+LOG=../log/${NETNAME}_1.log
+$CAFFE_ROOT/.build_release_31_52/tools/caffe train --solver=$SOLVER --weights=$WEIGHT 2> $LOG
