@@ -24,3 +24,14 @@ scripts/inference.sh # You may need to set some options in inference.sh to predi
 scripts/evalution.sh # report mean err on 300W dataset and CED curve.
 ```
 The `inference.sh` will use trainded model to predict shapes, the pretrainded can be downloaded from [here] (http://pan.baidu.com/s/1cBOph8). Feel free to put an issue if you encounter problems.
+
+## Speed
+Tested on Ubuntu 16.04, Nvidia TITAN X, without cudnn, without image load and data processing.
+
+| proto | num of layers | average forward speed | average backward speed |
+|--|--|--|--|
+|v3| 11 | 17.5707 ms / 1 sample | 38.4078 ms / 1 sample |
+|v4| 16 | 20.783 ms / 1 sample | 41.3371 ms / 1 sample |
+|v5| 26 | 22.3556 ms / 1 sample | 54.5015 ms / 1 sample |
+|v6| 36 | 25.0671 ms / 1 sample | 54.6937 ms / 1 sample |
+|v7| 41 | 26.0211 ms / 1 sample | 55.7797 ms / 1 sample |
