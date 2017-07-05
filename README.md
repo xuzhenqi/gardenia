@@ -35,3 +35,15 @@ Tested on Ubuntu 16.04, Nvidia TITAN X, without cudnn, without image load and da
 |v5| 26 | 22.3556 ms / 1 sample | 54.5015 ms / 1 sample |
 |v6| 36 | 25.0671 ms / 1 sample | 54.6937 ms / 1 sample |
 |v7| 41 | 26.0211 ms / 1 sample | 55.7797 ms / 1 sample |
+
+## Citation
+```
+@inproceedings{xu2016learning,
+  title={Learning Facial Point Response for Alignment by Purely Convolutional Network},
+  author={Xu, Zhenqi and Deng, Weihong and Hu, Jiani},
+  booktitle={Asian Conference on Computer Vision},
+  pages={248--263},
+  year={2016},
+  organization={Springer}
+}
+```
