@@ -47,3 +47,4 @@ Tested on Ubuntu 16.04, Nvidia TITAN X, without cudnn, without image load and da
   organization={Springer}
 }
 ```
+You can get a pdf copy from https://pan.baidu.com/s/1qXKo85Q
